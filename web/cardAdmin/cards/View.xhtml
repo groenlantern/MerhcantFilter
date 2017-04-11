@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+$LastChangedBy: Andre $
+$LastChangedDate: 2016-07-07 09:50:33 +0200 (Thu, 07 Jul 2016) $
+$LastChangedRevision: 994 $
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CARDViewDialog" widgetVar="CARDViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.IMFCardVIEWTITLE}">
+            <h:form id="CARDViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cardStockController.selectedCARD != null}">
+                        
+                        <h:outputText value="#{bundle.IMFCardCardStockIdCreate}" title="#{bundle.IMFCardCardStockId}" />
+                        <h:outputText value="#{cardStockController.selectedCARD.imf_CardStock_Id}" title="#{bundle.IMFCardCardStockId}"/>
+
+                        <h:outputText value="#{bundle.IMFCardPanNumberCreate}" title="#{bundle.IMFCardPanNumber}" />
+                        <h:outputText value="#{cardStockController.selectedCARD.imf_pan_number}" title="#{bundle.IMFCardPanNumber}"/>
+
+                        <h:outputText value="#{bundle.IMFCardBalanceCreate}" title="#{bundle.IMFCardBalance}" />
+                        <h:outputText value="#{cardStockController.selectedCARD.imf_balance_Num}" title="#{bundle.IMFCardBalance}"/>
+
+                        <h:outputText value="#{bundle.IMFCardActiveCreate}" title="#{bundle.IMFCardActive}" />
+                        <h:outputText value="#{cardStockController.selectedCARD.imf_active}" title="#{bundle.IMFCardActive}"/>
+
+                        <h:outputText value="#{bundle.IMFPANGroupCreate}" title="#{bundle.IMFPANGroup}" />
+                        <h:outputText value="#{cardStockController.selectedCARD.isPANGroup}" title="#{bundle.IMFPANGroup}"/>
+                        
+                        <h:outputText value="#{bundle.IMFCardCreationDateTimeCreate}" title="#{bundle.IMFCardCreationDateTime}" />
+                        <h:outputText value="#{cardStockController.selectedCARD.imf_creationDateTime}" title="#{bundle.IMFCardCreationDateTime}"/>
+
+                        <h:outputText value="#{bundle.IMFCardEditMIDLinkTITLECreate}" title="#{bundle.IMFCardEditMIDLinkTITLELabel}" />                        
+                        <p:dataList value="#{cardStockController.selectedCARD.merchantObjs.target}" var="mids"  >
+                            #{mids.label}
+                        </p:dataList>
+                        
+                        <h:outputText value="#{bundle.IMFCardCategoryLinkCreate}" title="#{bundle.IMFCardCategoryLinkLabel}" />                        
+                        <p:dataList value="#{cardStockController.selectedCARD.categoryObjs.target}" var="cats"  >
+                            #{cats.imf_description}
+                        </p:dataList>
+
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('CARDViewDialog').hide()" ajax="false" immediate="true" />
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

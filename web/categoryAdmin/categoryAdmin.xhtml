@@ -1,0 +1,40 @@
+
+<!--
+$LastChangedBy: Andre $
+$LastChangedDate: 2016-07-07 09:50:33 +0200 (Thu, 07 Jul 2016) $
+$LastChangedRevision: 994 $
+--><ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="titlebar">
+        <h3><h:outputText value="#{bundle.StellrMerchantFilterCategoryMaintenance}"/></h3>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="boxWrapper">
+            <div class="small-12 medium-4 column" onclick="location.href = '${request.contextPath}/categoryAdmin/main/List.xhtml';">
+                <div class="dashBox">
+                    <div class="small-12"><img src="${request.contextPath}/resources/common/images/compartment0.png" /></div>
+                    <div class="small-12"><p><h:outputText value="#{bundle.CategoryMaintenance}"/></p></div>
+                </div>
+            </div>
+            
+            <div class="small-12 medium-4 column" onclick="location.href = '${request.contextPath}/categoryAdmin/catmids/midCatAdmin.xhtml';">
+                <div class="dashBox">
+                    <div class="small-12"><img src="${request.contextPath}/resources/common/images/mid000.png" /></div>
+                    <div class="small-12">
+                        <p><h:outputText value="#{bundle.AssignMerchant}"/></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="small-12 medium-4 column" >
+            </div>
+           
+        </div>
+    </ui:define>
+</ui:composition>
+

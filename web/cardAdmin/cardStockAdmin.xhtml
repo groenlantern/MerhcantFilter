@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+$LastChangedBy: Stuart $
+$LastChangedDate: 2016-11-15 13:14:40 +0200 (Tue, 15 Nov 2016) $
+$LastChangedRevision: 1630 $
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/WEB-INF/templates/layout.xhtml">
+        <ui:define name="titlebar">
+            <h3>#{bundle.ListMFCardTitle}</h3>
+        </ui:define>
+
+
+        <ui:define name="content">
+            <h:form id="CARDListForm">
+                <p:panel>
+                    <p:dataTable id="datalist" value="#{cardStockController.cardItems}" var="item" widgetVar="listItems"
+                                 selectionMode="single" selection="#{cardStockController.selectedCARD}"
+                                 paginator="true"
+                                 rows="16"
+                                 rowKey="#{item.imf_CardStock_Id}"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 filteredValue="#{cardStockController.filteredCardItems}"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton midCardLinkButton catCardLinkButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton midCardLinkButton catCardLinkButton"/>
+
+                        <f:facet name="header">
+                            <p:inputText id="globalFilter" class="globalFilterClass" onkeyup="PF('listItems').filter()" placeholder="#{bundle.SearchBoxText}"/>
+                            
+                            <p:commandButton class="headerButton" id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" 
+                                             actionListener="#{cardStockController.prepareCreate}" update=":CARDCreateForm" oncomplete="PF('CARDCreateDialog').show()"/>
+                            
+                            <p:commandButton class="headerButton" id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CARDViewForm" 
+                                             oncomplete="PF('CARDViewDialog').show()" disabled="#{empty cardStockController.selectedCARD}"/>
+                            
+                            <p:commandButton class="headerButton" id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CardEditForm" 
+                                             oncomplete="PF('CardEditDialog').show()" disabled="#{empty cardStockController.selectedCARD}"/>
+
+                            <p:commandButton class="headerButton" id="midCardLinkButton"   icon="ui-icon-cart" value="#{bundle.IMFCARDLinkMerhcants}" update=":cardMidLinkForm" 
+                                             oncomplete="PF('cardMidLinkDialog').show()" disabled="#{empty cardStockController.selectedCARD}"/>
+
+                            <p:commandButton class="headerButton" id="catCardLinkButton"   icon="ui-icon-arrow-4-diag" value="#{bundle.IMFCARDLinkCategories}" update=":cardCatLinkForm" 
+                                             oncomplete="PF('cardCatLinkDialog').show()" disabled="#{empty cardStockController.selectedCARD}"/>
+                            
+                        </f:facet>
+
+                        <p:column styleClass="columnClass" rendered="false" >                           
+                            <h:outputText value="#{item.imf_CardStock_Id}"/>
+                        </p:column>
+                        
+                        <p:column styleClass="columnClass"  filterBy="#{item.imf_pan_number}" 
+                                  filterStyle="display:none;" width="400" >
+                            
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.IMFCardPanNumber}"/>
+                            </f:facet>
+                            
+                            <h:outputText value="#{item.imf_pan_number}"/>
+                        </p:column>
+
+                        <p:column styleClass="columnClass numberClassRight"  > 
+                            
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.IMFCardBalance}"/>
+                            </f:facet>
+                            
+                            <h:outputText value="#{item.imf_balance_Num}" />
+                        </p:column>
+
+                        <p:column styleClass="columnClass" width="170"  >                         
+                            
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.IMFCardActive}"/>
+                            </f:facet>
+                            
+                            <h:outputText value="#{item.imf_active}"/>
+                        </p:column>
+
+                        <p:column styleClass="columnClass"  width="170" >                         
+                            
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.IMFPANGroup}"/>
+                            </f:facet>
+                            
+                            <h:outputText value="#{item.isPANGroup}"/>
+                        </p:column>
+
+                        <p:column styleClass="columnClass" width="170" >
+                            
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.IMFCardCreationDateTime}"/>
+                            </f:facet>
+                            
+                            <h:outputText value="#{item.imf_creationDateTime}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="./cards/Create.xhtml"/>
+            <ui:include src="./cards/Edit.xhtml"/>
+            <ui:include src="./cards/View.xhtml"/>
+            <ui:include src="./cards/cardCatAdmin.xhtml"/>
+            <ui:include src="./cards/cardMidAdmin.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

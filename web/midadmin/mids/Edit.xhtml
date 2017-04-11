@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+$LastChangedBy: Stuart $
+$LastChangedDate: 2016-07-26 11:16:08 +0200 (Tue, 26 Jul 2016) $
+$LastChangedRevision: 1129 $
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MIDEditDialog" widgetVar="MIDEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ListMerchantTitle}">
+            <h:form id="MIDEditForm">
+                <h:panelGroup id="display">
+                    
+                     <p:panelGrid columns="2" rendered="#{midController.selectedMID != null}">
+                         
+                        <p:outputLabel value="#{bundle.MID_MIDCodeCreate}" for="imf_mid_midCode" title="#{bundle.MID_MIDCode}"  />
+                            <p:inputText id="imf_mid_midCode" value="#{midController.selectedMID.imf_mid_midCode}" title="#{bundle.MID_MIDCode}" />
+                         
+                        <p:outputLabel value="#{bundle.MIDNameCreate}" for="imf_mid_name" title="#{bundle.MIDName}" />
+                            <p:inputText id="imf_mid_name" value="#{midController.selectedMID.imf_mid_nameOriginal}" title="#{bundle.MIDName}" />
+                        
+                        <p:outputLabel value="#{bundle.MIDDescriptionCreate}" for="imf_mid_description" title="#{bundle.MIDDescription}" />
+                            <p:inputText id="imf_mid_description" value="#{midController.selectedMID.imf_mid_description}" title="#{bundle.MIDDescription}" />
+                        
+                        <p:outputLabel value="#{bundle.MIDParentCreate}" for="imf_mid_parent" title="#{bundle.MIDParent}"  />                        
+                            <p:selectOneMenu id="imf_mid_parent"
+                                             value="#{midController.selectedMID.imf_mid_parent}"
+                                             title="#{bundle.MIDParent}"  >
+                                <f:selectItem itemValue="0" itemLabel="#{bundle.MIDNoParentRoot}"/>
+
+                                <f:selectItems value="#{midController.getMidParentList()}"
+                                               var="parentMIDItem"
+                                               itemValue="#{parentMIDItem.value}"
+                                               itemDescription="#{parentMIDItem.label}"
+                                               itemLabel="#{parentMIDItem.description}" />
+                            </p:selectOneMenu>
+                        
+                    </p:panelGrid>                        
+                    
+                    <p:commandButton actionListener="#{midController.update}" value="#{bundle.Save}" update="display,:MIDListForm:datalist,:growl" 
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('MIDEditDialog').hide()"/>
+                    
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('MIDEditDialog').hide()" ajax="false" immediate="true" />
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

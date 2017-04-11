@@ -1,0 +1,75 @@
+
+<!--
+$LastChangedBy: Stuart $
+$LastChangedDate: 2016-10-21 13:42:33 +0200 (Fri, 21 Oct 2016) $
+$LastChangedRevision: 1580 $
+--><ui:composition template="/WEB-INF/templates/layout.xhtml"
+                   xmlns="http://www.w3.org/1999/xhtml"
+                   xmlns:f="http://java.sun.com/jsf/core"
+                   xmlns:h="http://java.sun.com/jsf/html"
+                   xmlns:ui="http://java.sun.com/jsf/facelets"
+                   xmlns:p="http://primefaces.org/ui">
+    <ui:define name="titlebar">
+        <h3><h:outputText value="#{bundle.StellrMerchantFilterHome}"/></h3>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="boxWrapper">
+            <div class="small-12 medium-3 column" onclick="location.href = '${request.contextPath}/midadmin/midAdmin.xhtml';">
+                <div class="dashBox">
+                    <div class="small-12"><img src="${request.contextPath}/resources/common/images/mid000.png" /></div>
+                    <div class="small-12"><p><h:outputText value="#{bundle.MerchantHierarchyMaintenance}"/></p></div>
+                </div>
+            </div>
+            <div class="small-12 medium-3 column" onclick="location.href = '${request.contextPath}/cardAdmin/cardStockAdmin.xhtml';">
+                <div class="dashBox">
+                    <div class="small-12"><img src="${request.contextPath}/resources/common/images/giftcardswipe000.png" /></div>
+                    <div class="small-12">
+                        <p><h:outputText value="#{bundle.CardStockMaintenance}"/></p>
+                    </div>
+                </div>
+            </div>
+            <div class="small-12 medium-3 column" onclick="location.href = '${request.contextPath}/categoryAdmin/categoryAdmin.xhtml';">
+                <div class="dashBox">
+                    <div class="small-12"><img src="${request.contextPath}/resources/common/images/compartment0.png" /></div>
+                    <div class="small-12">
+                        <p><h:outputText value="#{bundle.CategoryMaintenance}"/></p>
+                    </div>
+                </div>
+            </div>            
+            <div class="small-12 medium-3 column" onclick="location.href = '${request.contextPath}/campaignAdmin/campaignsAdmin.xhtml';">
+                <div class="dashBox">
+                    <div class="small-12"><img src="${request.contextPath}/resources/common/images/campaign.png" /></div>
+                    <div class="small-12">
+                        <p><h:outputText value="#{bundle.CampaignMaintenance}"/></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="small-12 medium-3 column" onclick="location.href = '${request.contextPath}/approveCardMerch/approveCardMID.xhtml';">
+                <div class="dashBox">
+                    <div class="small-12"><img src="${request.contextPath}/resources/common/images/flag76.png" /></div>
+                    <div class="small-12">
+                        <p><h:outputText value="#{bundle.ListMerchantTitle}"/></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="small-12 medium-3 column" onclick="location.href = '${request.contextPath}/';">
+            </div>
+            <div class="small-12 medium-3 column end" onclick="location.href = '${request.contextPath}/';">
+            </div>
+            <div class="small-12 medium-3 column end" onclick="location.href = '${request.contextPath}/';">
+            </div>
+            <div class="small-12 medium-3 column end" onclick="location.href = '${request.contextPath}/';">
+            </div>
+            
+            <div class="small-12 medium-3 column end" onclick="location.href = '${request.contextPath}/';">
+            </div>
+            
+            <div class="small-12 medium-3 column end" onclick="location.href = '${request.contextPath}/';">
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+$LastChangedBy: Stuart $
+$LastChangedDate: 2016-11-15 13:14:40 +0200 (Tue, 15 Nov 2016) $
+$LastChangedRevision: 1630 $
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+            
+    <ui:composition template="/WEB-INF/templates/layout.xhtml">
+              
+        <ui:define name="titlebar">
+            <h3>#{bundle.StellrMerchantFilterCategoryMaintenanceMIDS}</h3>
+        </ui:define>
+
+        <ui:define name="content" >
+            <h:form id="CategoryMidLinkForm"   >
+                 
+                <p:panel  style="position:relative; " >
+                    <p:panelGrid columns="2"  >
+                         
+                        <p:tabView  value="#{catController.catItemsMIDS}" var="item"  orientation="left" style=" height: auto !important; position:relative; " >
+
+                            <p:tab title="#{item.imf_description}"  >
+
+                                 <p:pickList id="pickListMIDCATS#{item.imf_Mid_Category_Id}" 
+                                             value="#{item.merchantObjs}" 
+                                             var="merchObj3" 
+                                             itemLabel="#{merchObj3.label}" 
+                                             itemValue="#{merchObj3}" 
+                                             style="  position:relative; top:50px; "
+                                             showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" 
+                                             converter="PickListMIDConverter"  >
+                                     
+                                       <f:facet name="sourceCaption">Available</f:facet>
+                                       <f:facet name="targetCaption">Selected</f:facet>
+
+                                 </p:pickList>
+
+                            </p:tab>
+
+                       </p:tabView>
+                    
+                    </p:panelGrid>        
+                    
+                    <p:commandButton actionListener="#{catController.createCatMIDS}" value="#{bundle.Save}" 
+                                     update=":growl" 
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) location.href = '${request.contextPath}/categoryAdmin/categoryAdmin.xhtml'; "/>
+                     
+                     <p:commandButton id="cancelMIDCatsButton" value="#{bundle.Cancel}"                                        
+                                      ajax="true" immediate="true" 
+                                      type="submit"
+                                      oncomplete="location.href = '${request.contextPath}/categoryAdmin/categoryAdmin.xhtml'; " />
+                     
+                </p:panel>
+              
+            </h:form>
+      
+        </ui:define>
+    </ui:composition>
+
+</html>

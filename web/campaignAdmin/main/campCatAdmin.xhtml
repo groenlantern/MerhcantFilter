@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+$LastChangedBy: Stuart $
+$LastChangedDate: 2016-11-15 13:14:40 +0200 (Tue, 15 Nov 2016) $
+$LastChangedRevision: 1630 $
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+            
+    <ui:composition  >
+        
+        <p:dialog id="CAMPCatLinkDialog" widgetVar="CAMPCatLinkDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.IMFCampEditCategoryLinkTITLE}">
+            
+            <h:form id="CAMPCatLinkForm">
+                
+                <h:panelGroup id="display">
+
+                    <p:panelGrid columns="2" rendered="#{campaignController.selectedCAMP != null}">
+
+                        <h:outputText value="#{bundle.MF_Campaign_Id_Create}" title="#{bundle.MF_Campaign_Id}" />
+                        <h:outputText value="#{campaignController.selectedCAMP.IMF_Campaign_Id}" title="#{bundle.MF_Campaign_Id}"/>
+
+                        <h:outputText value="#{bundle.MF_Campaign_Description_Creat}" title="#{bundle.MF_Campaign_Description}" />
+                        <h:outputText value="#{campaignController.selectedCAMP.imf_Description}" title="#{bundle.MF_Campaign_Description}"/>
+
+                        <h:outputText value="#{bundle.IMFCardCategoryLinkCreate}" title="#{bundle.IMFCardCategoryLinkLabel}" />
+
+                        <p:pickList id="pickListCAMPCATEGORY#{campaignController.selectedCAMP.IMF_Campaign_Id}" 
+                                    value="#{campaignController.selectedCAMP.categoryObjs}" 
+                                    var="categoryObj" 
+                                    itemLabel="#{categoryObj.imf_description}" 
+                                    itemValue="#{categoryObj}" 
+                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
+                                    converter="PickListCategoryConverter" >
+
+                                <f:facet name="sourceCaption">Available</f:facet>
+                                <f:facet name="targetCaption">Selected</f:facet>
+
+                        </p:pickList>
+
+                    </p:panelGrid>        
+
+                    <p:commandButton actionListener="#{campaignController.createCampaignCats()}" value="#{bundle.Save}" update="display,:CampaignListForm:datalist,:growl" 
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('CAMPCatLinkDialog').hide()"/>
+                    
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('CAMPCatLinkDialog').hide()" ajax="false" immediate="true" />
+                    
+                </h:panelGroup>
+                    
+            </h:form>
+      
+        </p:dialog>
+        
+    </ui:composition>
+
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+$LastChangedBy: Andre $
+$LastChangedDate: 2016-07-07 09:50:33 +0200 (Thu, 07 Jul 2016) $
+$LastChangedRevision: 994 $
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CAMPViewDialog" widgetVar="CAMPViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CampaignMaintenanceView}">
+            <h:form id="CAMPViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{campaignController.selectedCAMP != null}">
+                        
+                        <h:outputText value="#{bundle.MF_Campaign_Id_Create}" title="#{bundle.MF_Campaign_Id}" />
+                        <h:outputText value="#{campaignController.selectedCAMP.IMF_Campaign_Id}" title="#{bundle.MF_Campaign_Id}"/>
+
+                        <h:outputText value="#{bundle.MF_Campaign_Description_Creat}" title="#{bundle.MF_Campaign_Description}" />
+                        <h:outputText value="#{campaignController.selectedCAMP.imf_Description}" title="#{bundle.MF_Campaign_Description}"/>
+
+                        <h:outputText value="#{bundle.MF_Campaign_Active_Creat}" title="#{bundle.MF_Campaign_Active}" />
+                        <h:outputText value="#{campaignController.selectedCAMP.imf_active}" title="#{bundle.MF_Campaign_Active}"/>
+
+                        <h:outputText value="#{bundle.MF_Campaign_CreationDateTime_Creat}" title="#{bundle.MF_Campaign_CreationDateTime}" />
+                        <h:outputText value="#{campaignController.selectedCAMP.imf_creationDateTime}" title="#{bundle.MF_Campaign_CreationDateTime}"/>
+
+                        <h:outputText value="#{bundle.IMFCardEditMIDLinkTITLECreate}" title="#{bundle.IMFCardEditMIDLinkTITLELabel}" />                        
+                        <p:dataList value="#{campaignController.selectedCAMP.merchantObjs.target}" var="mids"  >
+                            #{mids.label}
+                        </p:dataList>
+                        
+                        <h:outputText value="#{bundle.IMFCardCategoryLinkCreate}" title="#{bundle.IMFCardCategoryLinkLabel}" />                        
+                        <p:dataList value="#{campaignController.selectedCAMP.categoryObjs.target}" var="cats"  >
+                            #{cats.imf_description}
+                        </p:dataList>
+
+                        <h:outputText value="#{bundle.IMFCardCampLinkCreate}" title="#{bundle.IMFCardCampLinkLabel}" />                        
+                        <p:dataList value="#{campaignController.selectedCAMP.cardObjs.target}" var="cardds"  >
+                            #{cardds.imf_pan_number}
+                        </p:dataList>
+
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('CAMPViewDialog').hide()" ajax="false" immediate="true" />
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

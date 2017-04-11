@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+$LastChangedBy: Stuart $
+$LastChangedDate: 2016-11-15 13:14:40 +0200 (Tue, 15 Nov 2016) $
+$LastChangedRevision: 1630 $
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+            
+    <ui:composition  >
+        
+        <p:dialog id="cardCatLinkDialog" widgetVar="cardCatLinkDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.IMFCardEditCategoryLinkTITLE}">
+            
+            <h:form id="cardCatLinkForm">
+                
+                <h:panelGroup id="display">
+
+                    <p:panelGrid columns="2" rendered="#{cardStockController.selectedCARD != null}">
+
+                        <h:outputText value="#{bundle.IMFCardCardStockIdCreate}" title="#{bundle.IMFCardCardStockId}" />
+                        <h:outputText value="#{cardStockController.selectedCARD.imf_CardStock_Id}" title="#{bundle.IMFCardCardStockId}"/>
+
+                        <h:outputText value="#{bundle.IMFCardPanNumberCreate}" title="#{bundle.IMFCardPanNumber}" />
+                        <h:outputText value="#{cardStockController.selectedCARD.imf_pan_number}" title="#{bundle.IMFCardPanNumber}"/>
+
+                        <h:outputText value="#{bundle.IMFCardCategoryLinkCreate}" title="#{bundle.IMFCardCategoryLinkLabel}" />
+
+                        <p:pickList id="pickListCATS#{cardStockController.selectedCARD.imf_CardStock_Id}" 
+                                    value="#{cardStockController.selectedCARD.categoryObjs}" 
+                                    var="categoryObj" 
+                                    itemLabel="#{categoryObj.imf_description}" 
+                                    itemValue="#{categoryObj}" 
+                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" 
+                                    converter="PickListCategoryConverter"  >
+
+                                <f:facet name="sourceCaption">Available</f:facet>
+                                <f:facet name="targetCaption">Selected</f:facet>
+
+                        </p:pickList>
+
+                    </p:panelGrid>        
+
+                    <p:commandButton actionListener="#{cardStockController.createCardCats()}" value="#{bundle.Save}" update="display,:CARDListForm:datalist,:growl" 
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('cardCatLinkDialog').hide()"/>
+                    
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('cardCatLinkDialog').hide()" ajax="false" immediate="true" />
+                    
+                </h:panelGroup>
+                    
+            </h:form>
+      
+        </p:dialog>
+        
+    </ui:composition>
+
+</html>

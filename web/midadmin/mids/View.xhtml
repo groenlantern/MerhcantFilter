@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+$LastChangedBy: Andre $
+$LastChangedDate: 2016-07-07 09:50:33 +0200 (Thu, 07 Jul 2016) $
+$LastChangedRevision: 994 $
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MIDViewDialog" widgetVar="MIDViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ListMerchantTitle}">
+            <h:form id="MIDViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{midController.selectedMID != null}">                        
+                        <h:outputText value="#{bundle.MIDIDCreate}" title="#{bundle.MIDID}" />
+                        <h:outputText value="#{midController.selectedMID.imf_mid_id}" title="#{bundle.MIDID}"/>
+
+                        <h:outputText value="#{bundle.MID_MIDCodeCreate}" title="#{bundle.MID_MIDCode}" />
+                        <h:outputText value="#{midController.selectedMID.imf_mid_midCode}" title="#{bundle.MID_MIDCode}"/>
+
+                        <h:outputText value="#{bundle.MIDNameCreate}" title="#{bundle.MIDName}" />
+                        <h:outputText value="#{midController.selectedMID.imf_mid_nameOriginal}" title="#{bundle.MIDName}"/>
+
+                        <h:outputText value="#{bundle.MIDDescriptionCreate}" title="#{bundle.MIDDescription}" />
+                        <h:outputText value="#{midController.selectedMID.imf_mid_description}" title="#{bundle.MIDDescription}"/>
+
+                        <h:outputText value="#{bundle.MIDParentCreate}" title="#{bundle.MIDParent}" />                        
+                        <h:outputText value=" #{midController.selectedMID.imf_mid_parent eq 0 ? '' : midController.selectedMID.imf_parentName  } "                          
+                                      title="#{bundle.MIDParent}"/>
+
+                        <h:outputText value="#{bundle.MIDLevelCreate}" title="#{bundle.MIDLevel}" />
+                        <h:outputText value="#{midController.selectedMID.imf_mid_level}" title="#{bundle.MIDLevel}"/>
+
+                        <h:outputText value="#{bundle.MIDCreateDateCreate}" title="#{bundle.MIDCreateDate}" />
+                        <h:outputText value="#{midController.selectedMID.imf_create_date}" title="#{bundle.MIDCreateDate}"/>
+
+                        <h:outputText value="#{bundle.MIDMerchantHierarchyCreate}" title="#{bundle.MIDMerchantHierarchy}" />
+                        <h:outputText value="#{midController.selectedMID.imf_hierarchy}" title="#{bundle.MIDMerchantHierarchy}"/>
+
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('MIDViewDialog').hide()" ajax="false" immediate="true" />
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

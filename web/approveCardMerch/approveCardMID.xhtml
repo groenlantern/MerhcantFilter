@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+$LastChangedBy: Stuart $
+$LastChangedDate: 2016-11-15 13:14:40 +0200 (Tue, 15 Nov 2016) $
+$LastChangedRevision: 1630 $
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/WEB-INF/templates/layout.xhtml">
+        <ui:define name="titlebar">
+            <h3>#{bundle.ListMerchantTitleAuthorization}</h3>
+        </ui:define>
+
+        <ui:define name="content">
+             
+            <h:form id="ApproveCardMIDForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" style="width:600px;"  >
+                            
+                            <p:outputLabel value="#{bundle.IMFCardPanNumberCreate}" for="cardPANString" 
+                                           title="#{bundle.IMFCardPanNumber}"   />
+
+                            <p:selectOneMenu id="cardPANString" value="#{approvecardmerchanttest.cardPANString}" effect="fold" 
+                                             editable="true" style="display: block; width:400px;" title="#{bundle.IMFCardPanNumber}" 
+                                             filter="true" filterMatchMode="startsWith" >
+                                 <f:selectItems value="#{approvecardmerchanttest.getPANItems()}"
+                                                var="pansItem"
+                                                itemValue="#{pansItem}"
+                                                itemDescription="#{pansItem}"
+                                                itemLabel="#{pansItem}" />  
+
+                            </p:selectOneMenu>
+
+                            
+                            <p:outputLabel value="#{bundle.MID_MIDCodeCreate}" for="midCodeString" 
+                                           title="#{bundle.MID_MIDCode}"   />
+                            
+                            <p:selectOneMenu id="midCodeString" value="#{approvecardmerchanttest.selectedMerchant}" effect="fold" 
+                                             editable="true" style="display: block; width:400px;" title="#{bundle.MID_MIDCode}" 
+                                             converter="MerchantConvertor" filter="true" filterMatchMode="startsWith" >
+                                 <f:selectItems value="#{approvecardmerchanttest.getMidItems()}"
+                                                var="midItem"
+                                                itemValue="#{midItem}"
+                                                itemDescription="#{midItem.imf_mid_midCode}"
+                                                itemLabel="#{midItem.imf_mid_description}" />  
+
+                            </p:selectOneMenu>
+ 
+
+                        </p:panelGrid>
+
+                        <p:commandButton actionListener="#{approvecardmerchanttest.processRequest}" value="#{bundle.ApprovePANSubmit}" 
+                                         update="display,:ApproveCardMIDForm,:growl" 
+                                         oncomplete=" "/>
+
+                        <p:commandButton value="#{bundle.Cancel}" 
+                                         oncomplete="location.href = '${request.contextPath}/index.xhtml'; "
+                                         ajax="true" immediate="true" 
+                                         type="submit" />
+
+                    </h:panelGroup>
+                </p:panel>
+            </h:form>
+                
+        </ui:define>
+    </ui:composition>
+
+</html>

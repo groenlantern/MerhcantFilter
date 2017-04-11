@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+$LastChangedBy: Stuart $
+$LastChangedDate: 2016-07-26 11:16:08 +0200 (Tue, 26 Jul 2016) $
+$LastChangedRevision: 1129 $
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CardEditDialog" widgetVar="CardEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.IMFCardEditTITLE}">
+            <h:form id="CardEditForm">
+                <h:panelGroup id="display">
+                    
+                     <p:panelGrid columns="2" rendered="#{cardStockController.selectedCARD != null}">
+                         
+                        <p:outputLabel value="#{bundle.IMFCardPanNumberCreate}" for="imf_pan_number" />
+                            <p:inputText id="imf_pan_number" value="#{cardStockController.selectedCARD.imf_pan_number}" title="#{bundle.IMFCardPanNumber}" />
+                        
+                        <p:outputLabel value="#{bundle.IMFCardBalanceCreate}" for="imf_balance_Num" />
+                          <p:inputNumber id="imf_balance_Num" value="#{cardStockController.selectedCARD.imf_balance_Num}" 
+                                       title="#{bundle.IMFCardBalance}" maxValue="999999999.99" inputStyleClass="numberClassRight"  />
+                          
+                        <p:outputLabel value="#{bundle.IMFCardActiveCreate}" for="imf_active" />
+                        <p:selectOneMenu id="imf_active"
+                                         value="#{cardStockController.selectedCARD.imf_active}"
+                                         title="#{bundle.IMFCardActive}"  >
+                            
+                            <f:selectItem itemValue="false" itemLabel="#{bundle.falseLabel}"/>                             
+                            <f:selectItem itemValue="true" itemLabel="#{bundle.trueLabel}"/>
+                            
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.IMFPANGroupCreate}" for="isPANGroup" />
+                        <p:selectOneMenu id="isPANGroup"
+                                         value="#{cardStockController.selectedCARD.isPANGroup}"
+                                         title="#{bundle.IMFPANGroup}"  >
+                            
+                            <f:selectItem itemValue="false" itemLabel="#{bundle.falseLabel}"/>                             
+                            <f:selectItem itemValue="true" itemLabel="#{bundle.trueLabel}"/>
+                            
+                        </p:selectOneMenu>
+                        
+                    </p:panelGrid>                        
+                    
+                    <p:commandButton actionListener="#{cardStockController.update}" value="#{bundle.Save}" update="display,:CARDListForm:datalist,:growl" 
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('CardEditDialog').hide()"/>
+                    
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('CardEditDialog').hide()" ajax="false" immediate="true" />
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

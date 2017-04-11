@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+$LastChangedBy: Stuart $
+$LastChangedDate: 2016-11-15 13:14:40 +0200 (Tue, 15 Nov 2016) $
+$LastChangedRevision: 1630 $
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+            
+    <ui:composition  >
+        
+        <p:dialog id="CAMPMidLinkDialog" widgetVar="CAMPMidLinkDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.IMFCampEditMIDLinkTITLE}">
+            
+            <h:form id="CAMPMidLinkForm">
+                
+                <h:panelGroup id="display">
+
+                    <p:panelGrid columns="2" rendered="#{campaignController.selectedCAMP != null}">
+
+                        <h:outputText value="#{bundle.MF_Campaign_Id_Create}" title="#{bundle.MF_Campaign_Id}" />
+                        <h:outputText value="#{campaignController.selectedCAMP.IMF_Campaign_Id}" title="#{bundle.MF_Campaign_Id}"/>
+
+                        <h:outputText value="#{bundle.MF_Campaign_Description_Creat}" title="#{bundle.MF_Campaign_Description}" />
+                        <h:outputText value="#{campaignController.selectedCAMP.imf_Description}" title="#{bundle.MF_Campaign_Description}"/>
+
+                        <h:outputText value="#{bundle.IMFCardEditMIDLinkTITLECreate}" title="#{bundle.IMFCardEditMIDLinkTITLELabel}" />
+
+                        <p:pickList id="pickmidcam#{campaignController.selectedCAMP.IMF_Campaign_Id}" 
+                                    value="#{campaignController.selectedCAMP.merchantObjs}" 
+                                    var="merchObj1" 
+                                    itemLabel="#{merchObj1.label}" 
+                                    itemValue="#{merchObj1}" 
+                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
+                                    converter="PickListMIDConverter" >
+
+                                <f:facet name="sourceCaption">Available</f:facet>
+                                <f:facet name="targetCaption">Selected</f:facet>
+
+                        </p:pickList>
+
+                    </p:panelGrid>        
+
+                    <p:commandButton actionListener="#{campaignController.createCampaignMIDS()}" value="#{bundle.Save}" update="display,:CampaignListForm:datalist,:growl" 
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('CAMPMidLinkDialog').hide()"/>
+                    
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('CAMPMidLinkDialog').hide()" ajax="false" immediate="true" />
+                    
+                </h:panelGroup>
+                    
+            </h:form>
+      
+        </p:dialog>
+        
+    </ui:composition>
+
+</html>
